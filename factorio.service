@@ -1,0 +1,15 @@
+[Unit]
+Description=Factorio Headless Server
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/games/factorio
+#Type=simple
+User=factorio
+Group=factorio
+ExecStart=/usr/bin/sh -c '/usr/bin/screen -DmS tnp-factorio /opt/games/factorio/bin/x64/factorio --start-server saves/tnp-factorio.zip --server-settings data/server-settings.json --console-log logs/server.log --server-id .server.pid --server-adminlist data/server-admins.json --server-banlist data/server-bans.json --mod-directory mods/'
+
+ExecStop=/usr/bin/screen -p 0 -S tnp-factorio -X eval 'stuff "/quit"\015'
+
+[Install]
+WantedBy=multi-user.target
